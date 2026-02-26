@@ -3,13 +3,13 @@
     "name": "NewInputSystem",
     "maps": [
         {
-            "name": "New action map",
-            "id": "1820e0b7-fe2f-4b60-8439-4404197a2ac3",
+            "name": "Click",
+            "id": "eaf006f2-e069-4ff2-a5d2-d6a6c30ded7f",
             "actions": [
                 {
-                    "name": "Input",
+                    "name": "Click",
                     "type": "Value",
-                    "id": "1939e2f7-1932-4f34-b514-d88c79c45cda",
+                    "id": "ee87fe6c-14b6-4c37-96ba-4c890a918920",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -18,8 +18,36 @@
             ],
             "bindings": [
                 {
-                    "name": "Move",
-                    "id": "57cf21ed-e983-47da-b781-55153f198411",
+                    "name": "",
+                    "id": "f9356279-12ae-42ec-b9e9-d517095625bd",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyBoard+Mouse",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "KeyBoard",
+            "id": "d54013f7-f227-42d9-ad13-9e82ab2df48e",
+            "actions": [
+                {
+                    "name": "Input",
+                    "type": "Value",
+                    "id": "b06e9573-67b1-4c70-bfca-69833a0c0f9c",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "2D Vector",
+                    "id": "3c244652-f29d-408e-92ad-b8b3b9e25aba",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -30,44 +58,44 @@
                 },
                 {
                     "name": "up",
-                    "id": "28e6a9d1-f2b7-4a63-aaeb-8c06ef8a08f5",
+                    "id": "0baac024-f591-4814-ba46-89fec7d2528c",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";KeyBoard+Mouse",
                     "action": "Input",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "down",
-                    "id": "e6f69a6c-0b3e-49a7-b654-a14b80044fae",
+                    "id": "1333479d-446a-4c68-892e-9786dd1595aa",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";KeyBoard+Mouse",
                     "action": "Input",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "left",
-                    "id": "ce4f045a-2c03-4aff-b512-acf36e3e0b6b",
+                    "id": "7073f8c6-ea99-48ab-b640-37123eee1624",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";KeyBoard+Mouse",
                     "action": "Input",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "right",
-                    "id": "d7737672-9c5a-477e-b87e-d53d78a80146",
+                    "id": "076656bf-915c-4baf-80fd-52a639cf54a8",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";KeyBoard+Mouse",
                     "action": "Input",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -75,5 +103,22 @@
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "KeyBoard+Mouse",
+            "bindingGroup": "KeyBoard+Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }

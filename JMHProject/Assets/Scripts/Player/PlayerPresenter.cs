@@ -1,14 +1,17 @@
-using UnityEngine;
-
-public class PlayerView : MonoBehaviour
+public class PlayerPresenter
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private PlayerModel _playermodel;
+    private PlayerView _playerview;
+    
+    public PlayerPresenter(PlayerModel model, PlayerView view)
     {
+        _playermodel = model;
+        _playerview = view;
+        _playerview.SetPresenter(this);
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
