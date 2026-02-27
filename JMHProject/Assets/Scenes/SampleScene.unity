@@ -490,6 +490,8 @@ GameObject:
   - component: {fileID: 1134766880}
   - component: {fileID: 1134766879}
   - component: {fileID: 1134766882}
+  - component: {fileID: 1134766883}
+  - component: {fileID: 1134766884}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -523,7 +525,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &1134766880
 SpriteRenderer:
   serializedVersion: 2
@@ -634,6 +636,30 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &1134766883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134766878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fcfa11d831910248a277d77ec0d445e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerView
+--- !u!114 &1134766884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134766878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b8bf1c276bda5c4daa401aede30d8bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CreatePlayer
 --- !u!1 &1441434143
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,7 +671,7 @@ GameObject:
   - component: {fileID: 1441434145}
   - component: {fileID: 1441434144}
   m_Layer: 0
-  m_Name: MG
+  m_Name: TESTMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

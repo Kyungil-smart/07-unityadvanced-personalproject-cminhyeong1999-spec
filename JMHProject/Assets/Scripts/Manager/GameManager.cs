@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     {
         ManagementInit<SceneLoader>();
         ManagementInit<InputManager>();
-        CreatePlayer();
+        ManagementInit<EventManager>();
     }
 
     private void ManagementInit<T>() where T : Component
@@ -32,13 +32,6 @@ public class GameManager : MonoBehaviour
         var component = new GameObject(typeof(T).Name);
         component.AddComponent<T>();
         DontDestroyOnLoad(component);
-    }
-
-    private void CreatePlayer()
-    {
-        PlayerModel _player = new PlayerModel("Player",4,4,4,4);
-        PlayerView _pview = new PlayerView();
-        PlayerPresenter _pp = new PlayerPresenter(_player, _pview);
     }
 
     public void EndGame()

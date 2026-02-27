@@ -1,23 +1,27 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerView : MonoBehaviour
 {
-    private PlayerPresenter _presenter;
+    private Rigidbody2D _rigidbody;
+    private Vector2 _velocity;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-        
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetVelocity(Vector2 velocity)
     {
-        
+        _velocity = velocity;
     }
-    
-    public void SetPresenter(PlayerPresenter presenter)
+
+    private void FixedUpdate()
     {
-        _presenter = presenter;
+        _rigidbody.linearVelocity = new Vector2(_velocity.x, _velocity.y);
+        
+        if(_velocity.x != 0)
+            transform.localScale = new Vector2(-1, 1);
     }
 }
