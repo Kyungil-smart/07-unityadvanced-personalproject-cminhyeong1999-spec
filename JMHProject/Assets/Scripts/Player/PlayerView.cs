@@ -5,6 +5,7 @@ public class PlayerView : MonoBehaviour
 {
     private Rigidbody2D _rigidbody;
     private Vector2 _velocity;
+    private SpriteRenderer spriteRenderer;
     
     private void Awake()
     {
@@ -16,12 +17,21 @@ public class PlayerView : MonoBehaviour
     {
         _velocity = velocity;
     }
+    
+    public void SetFlipped(Vector2 velocity)
+    {
+        if (velocity.x < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (velocity.x > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+    }
 
     private void FixedUpdate()
     {
         _rigidbody.linearVelocity = new Vector2(_velocity.x, _velocity.y);
-        
-        if(_velocity.x != 0)
-            transform.localScale = new Vector2(-1, 1);
     }
 }

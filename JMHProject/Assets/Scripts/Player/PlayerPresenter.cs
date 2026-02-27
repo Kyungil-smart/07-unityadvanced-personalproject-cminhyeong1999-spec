@@ -18,8 +18,9 @@ public class PlayerPresenter
         float speed = _playermodel._moveSpeed;
         Vector2 direction = new Vector2(input.x, input.y) * speed;
         
-        _playermodel.SetPos(direction);
-        _playerview.SetVelocity(direction);
+        _playermodel.SetPos(direction); // 위치값 저장용
+        _playerview.SetVelocity(direction); // view 이미지 갱신용
+        _playerview.SetFlipped(direction);  // 이미지 좌우 반전
     }
     
     public void Terminate()
