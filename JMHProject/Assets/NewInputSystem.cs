@@ -128,6 +128,15 @@ public partial class @NewInputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Push"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4cf25da-e37a-403e-80ef-e54432e414eb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -185,6 +194,17 @@ public partial class @NewInputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""Input"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a0e71c7-3317-4b55-8471-fbde940aa2c7"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyBoard+Mouse"",
+                    ""action"": ""Push"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -214,6 +234,7 @@ public partial class @NewInputSystem: IInputActionCollection2, IDisposable
         // KeyBoard
         m_KeyBoard = asset.FindActionMap("KeyBoard", throwIfNotFound: true);
         m_KeyBoard_Input = m_KeyBoard.FindAction("Input", throwIfNotFound: true);
+        m_KeyBoard_Push = m_KeyBoard.FindAction("Push", throwIfNotFound: true);
     }
 
     ~@NewInputSystem()
@@ -392,6 +413,7 @@ public partial class @NewInputSystem: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_KeyBoard;
     private List<IKeyBoardActions> m_KeyBoardActionsCallbackInterfaces = new List<IKeyBoardActions>();
     private readonly InputAction m_KeyBoard_Input;
+    private readonly InputAction m_KeyBoard_Push;
     /// <summary>
     /// Provides access to input actions defined in input action map "KeyBoard".
     /// </summary>
@@ -407,6 +429,10 @@ public partial class @NewInputSystem: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "KeyBoard/Input".
         /// </summary>
         public InputAction @Input => m_Wrapper.m_KeyBoard_Input;
+        /// <summary>
+        /// Provides access to the underlying input action "KeyBoard/Push".
+        /// </summary>
+        public InputAction @Push => m_Wrapper.m_KeyBoard_Push;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -436,6 +462,9 @@ public partial class @NewInputSystem: IInputActionCollection2, IDisposable
             @Input.started += instance.OnInput;
             @Input.performed += instance.OnInput;
             @Input.canceled += instance.OnInput;
+            @Push.started += instance.OnPush;
+            @Push.performed += instance.OnPush;
+            @Push.canceled += instance.OnPush;
         }
 
         /// <summary>
@@ -450,6 +479,9 @@ public partial class @NewInputSystem: IInputActionCollection2, IDisposable
             @Input.started -= instance.OnInput;
             @Input.performed -= instance.OnInput;
             @Input.canceled -= instance.OnInput;
+            @Push.started -= instance.OnPush;
+            @Push.performed -= instance.OnPush;
+            @Push.canceled -= instance.OnPush;
         }
 
         /// <summary>
@@ -525,5 +557,12 @@ public partial class @NewInputSystem: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInput(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Push" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPush(InputAction.CallbackContext context);
     }
 }

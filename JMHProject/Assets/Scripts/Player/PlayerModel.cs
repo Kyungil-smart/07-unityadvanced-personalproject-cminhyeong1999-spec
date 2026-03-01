@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerModel
 {
+    private PlayerPresenter _presenter;
     
     // 스텟
     private string _name;
@@ -12,10 +13,16 @@ public class PlayerModel
     private int _int;
     private int _luk;
     private int _exp;
-    private Vector2 _pos;
+    private readonly float _maxSpeed = 140f;
+    
     public float _moveSpeed { get; private set; }
-    private float _jumpForce;
-    private float _maxSpeed = 140f;
+    public Vector2 Pos { get; set; }
+    public float _jumpForce { get; private set; }
+    public bool IsGrounded { get; set; }
+    public float Gravity { get; private set; }
+    public Vector2 CurrentVelocity { get; set; }
+    
+    
     
     // 이벤트
     public event Action OnDeath;
@@ -34,8 +41,9 @@ public class PlayerModel
         _int = 4;
         _luk = 4;
         _hp = 100;
-        _moveSpeed = 10f;
-        _jumpForce = 10f;
+        _moveSpeed = 8f;
+        _jumpForce = 12f;
+        Gravity = -30f;
     }
     
     public PlayerModel(string name, int str, int dex, int Int, int luk)
@@ -60,11 +68,6 @@ public class PlayerModel
             OnDeath?.Invoke();
         }
     }
-
-    public void SetPos(Vector2 pos)
-    {
-        _pos = pos;
-    }
     
     public void ChangeSpeed(float speed)
     {
@@ -76,5 +79,10 @@ public class PlayerModel
         
         _moveSpeed = newSpeed;
         OnMoveSpeedChanged?.Invoke(_moveSpeed);
+    }
+    
+    public void SetPresenter(PlayerPresenter presenter)
+    {
+        _presenter = presenter;
     }
 }

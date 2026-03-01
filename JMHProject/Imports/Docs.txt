@@ -1,3 +1,5 @@
+2000,12000,20000,30000,1002357,,1050018,,1072171,1082002,1342069,1102054,1472021,,,,,,,,,,,,,,,,
+--
 https://intunknown.tistory.com/entry/unity-%EA%B2%8C%EC%9E%84%EC%A2%85%EB%A3%8C-%EB%B2%84%ED%8A%BC-%EB%A7%8C%EB%93%A4%EA%B8%B0	- 게임종료 버튼 구현
 
 --
@@ -11,3 +13,5 @@ https://daekyoulibrary.tistory.com/entry/Unity-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%A
 https://fkdl0048.github.io/unity/unity_in_EventDrivenProgramming/
 
  - 이벤트매니저
+
+https://blog.naver.com/pxkey/221324857701 - 유니티 Physics2D 메서드

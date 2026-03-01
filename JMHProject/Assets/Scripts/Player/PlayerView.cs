@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerView : MonoBehaviour
 {
+    private PlayerPresenter _presenter;
     private Rigidbody2D _rigidbody;
     private Vector2 _velocity;
     private SpriteRenderer spriteRenderer;
@@ -11,6 +12,22 @@ public class PlayerView : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+    
+    private void Update()
+    {
+        // 매 프레임 Presenter에게 물리 계산 요청 (중력 등)
+        _presenter?.UpdatePhysics(Time.deltaTime);
+    }
+    
+    private void FixedUpdate()
+    {
+        _rigidbody.linearVelocity = _velocity;
+    }
+
+    public void SetPresenter(PlayerPresenter presenter)
+    {
+        _presenter = presenter;
     }
 
     public void SetVelocity(Vector2 velocity)
@@ -30,8 +47,9 @@ public class PlayerView : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    public bool IsGrounded()
     {
-        _rigidbody.linearVelocity = new Vector2(_velocity.x, _velocity.y);
+        return Physics2D.OverlapCircle(_rigidbody.position + Vector2.down, 0.2f,LayerMask.GetMask("Ground"));
     }
+    
 }
