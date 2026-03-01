@@ -41,8 +41,8 @@ public class PlayerModel
         _int = 4;
         _luk = 4;
         _hp = 100;
-        _moveSpeed = 8f;
-        _jumpForce = 12f;
+        _moveSpeed = 2f;
+        _jumpForce = 7f;
         Gravity = -30f;
     }
     
