@@ -25,7 +25,7 @@ public class PlayerPresenter
         float speed = _playermodel._moveSpeed;
         Vector2 currentVel = _playermodel.CurrentVelocity;
 
-        currentVel.x = input.x * speed;
+        currentVel = input * speed;
         _playermodel.CurrentVelocity = currentVel;
         _playerview.SetVelocity(currentVel);
         _playerview.SetFlipped(currentVel);  // 이미지 좌우 반전
