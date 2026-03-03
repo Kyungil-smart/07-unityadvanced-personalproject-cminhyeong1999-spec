@@ -4,17 +4,19 @@ public class PlayerPresenter
 {
     private PlayerModel _playermodel;
     private PlayerView _playerview;
+    public static PlayerPresenter Player;
     
-    private bool _isJumping = false;
+    //private bool _isJumping = false;
     private bool _isWalking = false;
     
     public PlayerPresenter(PlayerModel model, PlayerView view)
     {
         _playermodel = model;
         _playerview = view;
+        Player = this;
 
         InputManager.Instance.Walk += Walk;
-        InputManager.Instance.Jump += Jump;
+        //InputManager.Instance.Jump += Jump;
     }
 
     private void Walk(Vector2 input)
@@ -25,14 +27,18 @@ public class PlayerPresenter
         float speed = _playermodel._moveSpeed;
         Vector2 currentVel = _playermodel.CurrentVelocity;
 
-        currentVel.x = input.x * speed;
+        currentVel = input * speed;
         _playermodel.CurrentVelocity = currentVel;
-        
+        _playerview.SetVelocity(currentVel);
         _playerview.SetFlipped(currentVel);  // 이미지 좌우 반전
-        
-        Debug.Log(_isWalking);
+        _playermodel.Pos = _playerview.GetPos();    // 플레이어의 절대 좌표 저장
     }
 
+    public Vector2 GetPos()
+    {
+        return _playermodel.Pos;
+    }
+    /*
     private void Jump()
     {
         // 지면에 있을 때만 점프 가능
@@ -43,7 +49,9 @@ public class PlayerPresenter
             _playermodel.CurrentVelocity = currentVel;
         }
     }
+    */
 
+    /*
     // 지면 체크, 임의 중력 적용 등을 매 프레임 체크하기 위한 메서드
     public void UpdatePhysics(float deltaTime)
     {
@@ -66,10 +74,11 @@ public class PlayerPresenter
         _playermodel.CurrentVelocity = velocity;
         _playerview.SetVelocity(velocity);
     }
+    */
     
     public void Terminate()
     {
         InputManager.Instance.Walk -= Walk;
-        InputManager.Instance.Jump -= Jump;
+        //InputManager.Instance.Jump -= Jump;
     }
 }

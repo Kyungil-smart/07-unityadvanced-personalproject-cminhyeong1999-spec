@@ -4,15 +4,19 @@ public class CreatePlayer : MonoBehaviour
 {
     private PlayerPresenter _presenter;
     
-    void Start()
+    private void Start()
+    {
+        _presenter = Create();
+    }
+
+    public PlayerPresenter Create()
     {
         var view = GetComponent<PlayerView>();
         var model = new PlayerModel();
         
-        _presenter = new PlayerPresenter(model, view);
-        view.SetPresenter(_presenter);
-        model.SetPresenter(_presenter);
-        Debug.Log("Create Player");
+        var tmp = new PlayerPresenter(model, view);
+        view.SetPresenter(tmp);
+        model.SetPresenter(tmp);
+        return tmp;
     }
-    
 }

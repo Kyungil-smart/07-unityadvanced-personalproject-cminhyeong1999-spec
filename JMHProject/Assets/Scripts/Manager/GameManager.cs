@@ -3,6 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public static PlayerPresenter Presenter { get; private set; }
     
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
         ManagementInit<SceneLoader>();
         ManagementInit<InputManager>();
         ManagementInit<EventManager>();
+
     }
 
     private void ManagementInit<T>() where T : Component

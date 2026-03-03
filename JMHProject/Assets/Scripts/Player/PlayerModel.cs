@@ -17,7 +17,6 @@ public class PlayerModel
     
     public float _moveSpeed { get; private set; }
     public Vector2 Pos { get; set; }
-    public float _jumpForce { get; private set; }
     public bool IsGrounded { get; set; }
     public float Gravity { get; private set; }
     public Vector2 CurrentVelocity { get; set; }
@@ -41,9 +40,8 @@ public class PlayerModel
         _int = 4;
         _luk = 4;
         _hp = 100;
-        _moveSpeed = 2f;
-        _jumpForce = 7f;
-        Gravity = -30f;
+        _moveSpeed = 20f;
+        Pos = Vector2.zero;
     }
     
     public PlayerModel(string name, int str, int dex, int Int, int luk)
