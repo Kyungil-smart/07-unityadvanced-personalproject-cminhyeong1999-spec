@@ -14,11 +14,13 @@ public class PlayerView : MonoBehaviour
         _rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
     
+    /*
     private void Update()
     {
         // 매 프레임 Presenter에게 물리 계산 요청 (중력 등)
         _presenter?.UpdatePhysics(Time.deltaTime);
     }
+    */
     
     private void FixedUpdate()
     {
@@ -46,10 +48,11 @@ public class PlayerView : MonoBehaviour
             transform.localScale = new Vector3(1, 1, 1);
         }
     }
-
+    
+    /*
     public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(_rigidbody.position + Vector2.down, 0.2f,LayerMask.GetMask("Ground"));
     }
-    
+    */
 }

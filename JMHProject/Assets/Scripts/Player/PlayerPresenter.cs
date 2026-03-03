@@ -14,7 +14,7 @@ public class PlayerPresenter
         _playerview = view;
 
         InputManager.Instance.Walk += Walk;
-        InputManager.Instance.Jump += Jump;
+        //InputManager.Instance.Jump += Jump;
     }
 
     private void Walk(Vector2 input)
@@ -27,12 +27,10 @@ public class PlayerPresenter
 
         currentVel.x = input.x * speed;
         _playermodel.CurrentVelocity = currentVel;
-        
+        _playerview.SetVelocity(currentVel);
         _playerview.SetFlipped(currentVel);  // 이미지 좌우 반전
-        
-        Debug.Log(_isWalking);
     }
-
+    /*
     private void Jump()
     {
         // 지면에 있을 때만 점프 가능
@@ -43,7 +41,9 @@ public class PlayerPresenter
             _playermodel.CurrentVelocity = currentVel;
         }
     }
+    */
 
+    /*
     // 지면 체크, 임의 중력 적용 등을 매 프레임 체크하기 위한 메서드
     public void UpdatePhysics(float deltaTime)
     {
@@ -66,10 +66,11 @@ public class PlayerPresenter
         _playermodel.CurrentVelocity = velocity;
         _playerview.SetVelocity(velocity);
     }
+    */
     
     public void Terminate()
     {
         InputManager.Instance.Walk -= Walk;
-        InputManager.Instance.Jump -= Jump;
+        //InputManager.Instance.Jump -= Jump;
     }
 }
