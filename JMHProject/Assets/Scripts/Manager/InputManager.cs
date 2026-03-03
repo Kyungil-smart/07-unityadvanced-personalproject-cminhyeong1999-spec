@@ -11,7 +11,7 @@ public class InputManager : MonoBehaviour
     // 이벤트
     public event Action<Vector2> Walk;
     public event Action<Vector2> Click;
-    public event Action Jump;
+    //public event Action Jump;
     
     private void Awake()
     {
@@ -34,7 +34,7 @@ public class InputManager : MonoBehaviour
         _inputActions.KeyBoard.Input.performed += ctx => Walk?.Invoke(ctx.ReadValue<Vector2>());
         // 키 뗐을 때 0 전달
         _inputActions.KeyBoard.Input.canceled += ctx => Walk?.Invoke(Vector2.zero);
-        _inputActions.KeyBoard.Push.performed += ctx => Jump?.Invoke();
+        //_inputActions.KeyBoard.Push.performed += ctx => Jump?.Invoke();
 
         // [Click - Click] 액션 구독
         _inputActions.Click.Click.performed += ctx => Click?.Invoke(ctx.ReadValue<Vector2>());

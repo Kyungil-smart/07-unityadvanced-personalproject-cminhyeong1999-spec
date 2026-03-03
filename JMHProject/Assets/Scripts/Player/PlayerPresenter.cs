@@ -4,14 +4,16 @@ public class PlayerPresenter
 {
     private PlayerModel _playermodel;
     private PlayerView _playerview;
+    public static PlayerPresenter Player;
     
-    private bool _isJumping = false;
+    //private bool _isJumping = false;
     private bool _isWalking = false;
     
     public PlayerPresenter(PlayerModel model, PlayerView view)
     {
         _playermodel = model;
         _playerview = view;
+        Player = this;
 
         InputManager.Instance.Walk += Walk;
         //InputManager.Instance.Jump += Jump;
@@ -29,6 +31,12 @@ public class PlayerPresenter
         _playermodel.CurrentVelocity = currentVel;
         _playerview.SetVelocity(currentVel);
         _playerview.SetFlipped(currentVel);  // 이미지 좌우 반전
+        _playermodel.Pos = _playerview.GetPos();    // 플레이어의 절대 좌표 저장
+    }
+
+    public Vector2 GetPos()
+    {
+        return _playermodel.Pos;
     }
     /*
     private void Jump()

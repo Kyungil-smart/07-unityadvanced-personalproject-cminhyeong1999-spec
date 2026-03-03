@@ -48,6 +48,13 @@ public class PlayerView : MonoBehaviour
             transform.localScale = new Vector3(1, 1, 1);
         }
     }
+
+    public Vector2 GetPos()
+    {
+        var x = transform.position.x;
+        var y = transform.position.y;
+        return new Vector2(x, y);
+    }
     
     /*
     public bool IsGrounded()
