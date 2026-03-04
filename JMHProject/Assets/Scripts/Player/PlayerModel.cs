@@ -8,63 +8,55 @@ public class PlayerModel
     // 스텟
     private string _name;
     private int _hp;
-    private int _str;
-    private int _dex;
-    private int _int;
-    private int _luk;
+    private int _maxHp;
     private int _exp;
     private readonly float _maxSpeed = 140f;
     
     public float _moveSpeed { get; private set; }
     public Vector2 Pos { get; set; }
-    public bool IsGrounded { get; set; }
-    public float Gravity { get; private set; }
     public Vector2 CurrentVelocity { get; set; }
     
-    
-    
-    // 이벤트
-    public event Action OnDeath;
-    public event Action<int> OnHpChanged;
-    public event Action<int> OnStrChanged;
-    public event Action<int> OnDexChanged;
-    public event Action<int> OnIntChanged;
-    public event Action<int> OnLukChanged;
-    public event Action<float> OnMoveSpeedChanged;
 
     public PlayerModel()
     {
         _name = "PLAYER";
-        _str = 12;
-        _dex = 4;
-        _int = 4;
-        _luk = 4;
-        _hp = 100;
-        _moveSpeed = 20f;
+        _maxHp = 100;
+        _hp =   _maxHp;
+        _moveSpeed = 7f;
         Pos = Vector2.zero;
+        EventManager.Instance.OnHpDecreased += TakeDamage;
+        EventManager.Instance.OnHpIncreased += HealHp;
     }
     
-    public PlayerModel(string name, int str, int dex, int Int, int luk)
+    public PlayerModel(string name)
     {
         _name = name;
-        _str = str;
-        _dex = dex;
-        _int = Int;
-        _luk = luk;
-        _hp = 100;
+        _maxHp = 100;
+        _hp =   _maxHp;
+        _moveSpeed = 7f;
+        Pos = Vector2.zero;
+        EventManager.Instance.OnHpDecreased += TakeDamage;
+        EventManager.Instance.OnHpIncreased += HealHp;
     }
     
-    public void TakeDamage(int Damage)
+    private void TakeDamage(int damage)
     {
-        if (Damage <= 0) return;
-
-        _hp = Math.Max(0, _hp - Damage);
-        OnHpChanged?.Invoke(_hp);
+        if (damage <= 0) return;
+        // 받은 데미지가 0 이하로 떨어지면 0, 0 이상이면 _hp - damage
+        _hp = Math.Max(0, _hp - damage);
         
         if (_hp <= 0)
         {
-            OnDeath?.Invoke();
+            EventManager.Instance.PublishOnDeath();
         }
+    }
+    
+    private void HealHp(int heal)
+    {
+        if (heal <= 0) return;
+        
+        // 받은 힐량이 _maxHp 이상이면 _maxHp, 이하이면 _hp + heal
+        _hp = Math.Min(_maxHp, _hp + heal);
     }
     
     public void ChangeSpeed(float speed)
@@ -76,11 +68,17 @@ public class PlayerModel
         if (Mathf.Approximately(_moveSpeed, newSpeed)) return;
         
         _moveSpeed = newSpeed;
-        OnMoveSpeedChanged?.Invoke(_moveSpeed);
+        EventManager.Instance.PublishOnMoveSpeedChanged(_moveSpeed);
     }
     
     public void SetPresenter(PlayerPresenter presenter)
     {
         _presenter = presenter;
+    }
+    
+    public void Terminate()
+    {
+        EventManager.Instance.OnHpDecreased -= TakeDamage;
+        EventManager.Instance.OnHpIncreased -= HealHp;
     }
 }

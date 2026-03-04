@@ -1,4 +1,4 @@
-public enum Level
+public enum StageLevel
 {
     Level1 = 0,
     Level2,

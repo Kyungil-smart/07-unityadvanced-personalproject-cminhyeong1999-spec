@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         InvokeRepeating(nameof(Spawn), 2f, spawnRate);
-        GameManager.Instance.LevelChanged += StageChange;
+        EventManager.Instance.LevelChanged += StageChange;
     }
 
     private void Spawn()
@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    private void StageChange(Level level)
+    private void StageChange(StageLevel level)
     {
         //PoolManager.Instance.SetSummonTypes();
     }
@@ -54,7 +54,7 @@ public class Spawner : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.LevelChanged -= StageChange;
+        EventManager.Instance.LevelChanged -= StageChange;
     }
 
 }

@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] public float speed = 4f;
-    private Vector2 target;
+    private MonsterData _data;
+    private Vector2 _target;
 
     private bool _isDead;
-
-    private float _originalSpeed;
+    private int _currentHealth;
+    private float _currentSpeed;
     private Rigidbody2D _rig;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,35 +19,35 @@ public class Enemy : MonoBehaviour
         
     }
 
-    // 활성화 되었을 경우
-    private void OnEnable()
+    // 오브젝트 풀에서 생성 후 Init
+    public void Init(MonsterData newData)
     {
+        _data = newData;
         _isDead = false;
-        // Enemy를 임시가속 한 후에 원래 스피드로 복구하기 위한 변수
-        _originalSpeed = speed;
+        _currentHealth = _data.maxHealth;
+        _currentSpeed = _data.baseSpeed;
         if(_rig != null) _rig.linearVelocity = Vector2.zero;
     }
-    
 
     // Update is called once per frame
     private void FixedUpdate()
     {
         if (_isDead) return;
         
-        target = PlayerPresenter.Player.GetPos();
-        Vector2 direction = target - _rig.position;
+        _target = PlayerPresenter.Player.GetPos();
+        Vector2 direction = _target - _rig.position;
         
         // Enemy가 20 x 20 타일안의 두 거리의 최대값인 20*sqrt(2)를 벗어나면
         // 일시적으로 speed를 타일 내로 아주 빠르게 이동시키기 위함
         if (direction.magnitude > 29f)
         {
-            speed = _originalSpeed + 80f;
+            _currentSpeed = _data.baseSpeed + 80f;
         }
         else if (direction.magnitude <= 20f)    // 일정거리 안으로 들어오면 속도를 다시 원상복구
         {
-            speed = _originalSpeed;
+            _currentSpeed = _data.baseSpeed;
         }
-        Vector2 nextVec = speed * Time.fixedDeltaTime * direction.normalized;
+        Vector2 nextVec = _currentSpeed * Time.fixedDeltaTime * direction.normalized;
         _rig.MovePosition(_rig.position + nextVec);
         _rig.linearVelocity = Vector2.zero;
     }
@@ -56,13 +56,25 @@ public class Enemy : MonoBehaviour
     {
         if (_isDead) return;
         
-        if (target.x > _rig.position.x)
+        if (_target.x > _rig.position.x)
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
-        else if (target.x < _rig.position.x)
+        else if (_target.x < _rig.position.x)
         {
             transform.localScale = new Vector3(1, 1, 1);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            
+        }
+        else if (collision.CompareTag("Weapon"))
+        {
+            
         }
     }
 }

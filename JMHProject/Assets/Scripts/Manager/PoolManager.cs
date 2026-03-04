@@ -7,10 +7,20 @@ public class PoolManager : MonoBehaviour
 {
     public static PoolManager Instance { get; private set; }
     
+    // 오브젝트 풀
     private IObjectPool<GameObject> _pool;
+    
+    // 몬스터 프리펩 가져오기
     private List<GameObject> _monsterPrefabs = new List<GameObject>();
     private GameObject _summonMonster1;
     private GameObject _summonMonster2;
+    
+    // 몬스터 기본 설정된 데이터 가져오기
+    private List<MonsterData> _monsterDatas = new List<MonsterData>();
+    private MonsterData _data1;
+    private MonsterData _data2;
+    
+    // 풀 사이즈 변수
     private int _maxPoolSize;
     private int _minPoolSize;
 
@@ -33,6 +43,7 @@ public class PoolManager : MonoBehaviour
     private void Init()
     {
         _monsterPrefabs = Resources.LoadAll<GameObject>("Monsters").ToList();
+        _monsterDatas = Resources.LoadAll<MonsterData>("Monsters/MonsterDatas").ToList();
         SetSummonTypes(summonIndex, summonIndex + 1);
         _minPoolSize = 40;
         _maxPoolSize = 300;
@@ -59,16 +70,33 @@ public class PoolManager : MonoBehaviour
     private GameObject CreateObject() // 오브젝트 생성
     {
         // 0.0 ~ 1.0 까지의 랜덤 값 중 0.65를 넘기지 못하면 _summonMonster1, 아니면 _summonMonster2 선택
-        GameObject nowSummon = (Random.value < 0.65f) ? _summonMonster1 : _summonMonster2;
+        // 
+        bool what = (Random.value < 0.65f);
+        GameObject nowSummon = what ? _summonMonster1 : _summonMonster2;
+        MonsterData nowSummonData = what ? _data1 : _data2;
 
         if (nowSummon == null) return null;
+        
+        var summon = Instantiate(nowSummon);
+        if (summon.TryGetComponent(out Enemy enemy))
+        {
+            enemy.Init(nowSummonData);
+        }
 
-        return Instantiate(nowSummon);
+        return summon;
     }
 
     private void ActivatePoolObject(GameObject obj) // 오브젝트 활성화
     {
         obj.SetActive(true);
+        
+        if (obj.TryGetComponent(out Enemy enemy))
+        {
+            // 반납된 객체들의 상태 초기화
+            // 어떤 프리팹인지에 따라 데이터를 다시 넣어주는 로직.
+            var targetData = (obj.name.Contains(_summonMonster1.name)) ? _data1 : _data2;
+            enemy.Init(targetData);
+        }
     }
 
     private void DisablePoolObject(GameObject obj) // 오브젝트 비활성화
@@ -84,14 +112,19 @@ public class PoolManager : MonoBehaviour
     // 소환 할 두 종류의 몬스터를 지정하기 위한 메서드 
     public void SetSummonTypes(int index1, int index2)
     {
-        if (_monsterPrefabs.Count == 0 || index1 > _monsterPrefabs.Count || index2 > _monsterPrefabs.Count) return;
+        if (_monsterPrefabs.Count == 0 || _monsterDatas.Count == 0) return;
 
         // 인덱스가 리스트 범위를 넘지 않게 Clamp 처리
         int i1 = Mathf.Clamp(index1, 0, _monsterPrefabs.Count - 1);
         int i2 = Mathf.Clamp(index2, 0, _monsterPrefabs.Count - 1);
 
+        // 소환할 몬스터 프리펩 세팅
         _summonMonster1 = _monsterPrefabs[i1];
         _summonMonster2 = _monsterPrefabs[i2];
+        
+        // 소환할 몬스터 데이터 세팅
+        _data1 = _monsterDatas[i1];
+        _data2 = _monsterDatas[i2];
     }
     
     public GameObject GetObject()
