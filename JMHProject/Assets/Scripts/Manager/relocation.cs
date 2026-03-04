@@ -1,16 +1,26 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class relocation : MonoBehaviour
 {
     [SerializeField] private Transform[] tiles; // 자식 타일
     [SerializeField] private float mapSize = 40f; // 2x2 전체 크기 (20+20=40)
     private readonly float _checkDistance = 20f;
+    private Vector3 _playerPos;
+    
+    private void LateUpdate()
+    {   
+        // 키가 눌렸다 뗏을때만 PlayerPos가 업데이트 되는 구조 때문에
+        // 키가 눌려지는동안 타일맵들이 이동을 하지 않는 현상을 개선하기 위하여
+        // LateUpdate에서 PlayerPos를 설정
+        PlayerPresenter.Player.SetPlayerPos();
+        _playerPos = PlayerPresenter.Player.GetPos();
+        MoveTiles(_playerPos);
+    }
 
-    void LateUpdate()
+    private void MoveTiles(Vector3 playerPos)
     {
-        Vector3 playerPos = PlayerPresenter.Player.GetPos();
-        
-        
         foreach (Transform tile in tiles)
         {
             // 플레이어와 각 타일 사이의 거리 차이 계산
@@ -32,4 +42,5 @@ public class relocation : MonoBehaviour
             }
         }
     }
+    
 }

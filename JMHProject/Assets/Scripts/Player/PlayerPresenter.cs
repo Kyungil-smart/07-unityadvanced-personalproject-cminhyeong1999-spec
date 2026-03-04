@@ -31,12 +31,17 @@ public class PlayerPresenter
         _playermodel.CurrentVelocity = currentVel;
         _playerview.SetVelocity(currentVel);
         _playerview.SetFlipped(currentVel);  // 이미지 좌우 반전
-        _playermodel.Pos = _playerview.GetPos();    // 플레이어의 절대 좌표 저장
+        SetPlayerPos(); // 플레이어의 절대 좌표 저장
     }
 
     public Vector2 GetPos()
     {
         return _playermodel.Pos;
+    }
+
+    public void SetPlayerPos()
+    {
+        _playermodel.Pos = _playerview.GetPos();
     }
     /*
     private void Jump()

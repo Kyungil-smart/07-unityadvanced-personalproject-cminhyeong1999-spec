@@ -10,7 +10,7 @@ public class InputManager : MonoBehaviour
     
     // 이벤트
     public event Action<Vector2> Walk;
-    public event Action<Vector2> Click;
+    public event Action<String> Click;
     //public event Action Jump;
     
     private void Awake()
@@ -37,7 +37,7 @@ public class InputManager : MonoBehaviour
         //_inputActions.KeyBoard.Push.performed += ctx => Jump?.Invoke();
 
         // [Click - Click] 액션 구독
-        _inputActions.Click.Click.performed += ctx => Click?.Invoke(ctx.ReadValue<Vector2>());
+        _inputActions.Click.Click.performed += ctx => Click?.Invoke(ctx.control.name);
     }
 
     private void OnDisable()
