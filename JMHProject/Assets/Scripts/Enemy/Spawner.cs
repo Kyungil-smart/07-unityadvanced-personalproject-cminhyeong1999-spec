@@ -4,11 +4,13 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private float spawnRate = 1f;
     [SerializeField] private int spawnCount = 5;
+    
     private readonly int _spawnMax = 300;
     
     void Start()
     {
         InvokeRepeating(nameof(Spawn), 2f, spawnRate);
+        GameManager.Instance.LevelChanged += StageChange;
     }
 
     private void Spawn()
@@ -18,6 +20,11 @@ public class Spawner : MonoBehaviour
             GameObject monster = PoolManager.Instance.GetObject();
             monster.transform.position = GetRandomSpawnPosition();
         }
+    }
+
+    private void StageChange(Level level)
+    {
+        //PoolManager.Instance.SetSummonTypes();
     }
 
     // 플레이어 위치를 기준으로 시야 밖에 원형 구역에 몹을 스폰하기 위한 위치 설정 메서드
@@ -44,6 +51,10 @@ public class Spawner : MonoBehaviour
 
         return spawnPos;
     }
-    
+
+    private void OnDisable()
+    {
+        GameManager.Instance.LevelChanged -= StageChange;
+    }
 
 }

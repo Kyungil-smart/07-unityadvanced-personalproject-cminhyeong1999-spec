@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -7,9 +8,13 @@ public class PoolManager : MonoBehaviour
     public static PoolManager Instance { get; private set; }
     
     private IObjectPool<GameObject> _pool;
-    private GameObject _prefab;
+    private List<GameObject> _monsterPrefabs = new List<GameObject>();
+    private GameObject _summonMonster1;
+    private GameObject _summonMonster2;
     private int _maxPoolSize;
     private int _minPoolSize;
+
+    public int summonIndex = 0;
     
     private void Awake()
     {
@@ -27,7 +32,8 @@ public class PoolManager : MonoBehaviour
 
     private void Init()
     {
-        _prefab = Resources.Load<GameObject>("Monster1");
+        _monsterPrefabs = Resources.LoadAll<GameObject>("Monsters").ToList();
+        SetSummonTypes(summonIndex, summonIndex + 1);
         _minPoolSize = 40;
         _maxPoolSize = 300;
         
@@ -52,7 +58,12 @@ public class PoolManager : MonoBehaviour
     
     private GameObject CreateObject() // 오브젝트 생성
     {
-        return Instantiate(_prefab);
+        // 0.0 ~ 1.0 까지의 랜덤 값 중 0.65를 넘기지 못하면 _summonMonster1, 아니면 _summonMonster2 선택
+        GameObject nowSummon = (Random.value < 0.65f) ? _summonMonster1 : _summonMonster2;
+
+        if (nowSummon == null) return null;
+
+        return Instantiate(nowSummon);
     }
 
     private void ActivatePoolObject(GameObject obj) // 오브젝트 활성화
@@ -68,6 +79,19 @@ public class PoolManager : MonoBehaviour
     private void DestroyPoolObject(GameObject obj) // 오브젝트 삭제
     {
         Destroy(obj);
+    }
+    
+    // 소환 할 두 종류의 몬스터를 지정하기 위한 메서드 
+    public void SetSummonTypes(int index1, int index2)
+    {
+        if (_monsterPrefabs.Count == 0 || index1 > _monsterPrefabs.Count || index2 > _monsterPrefabs.Count) return;
+
+        // 인덱스가 리스트 범위를 넘지 않게 Clamp 처리
+        int i1 = Mathf.Clamp(index1, 0, _monsterPrefabs.Count - 1);
+        int i2 = Mathf.Clamp(index2, 0, _monsterPrefabs.Count - 1);
+
+        _summonMonster1 = _monsterPrefabs[i1];
+        _summonMonster2 = _monsterPrefabs[i2];
     }
     
     public GameObject GetObject()

@@ -1,8 +1,18 @@
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+
+    public float gameTime;
+    private float progress;
+    private Level _level = Level.Level1;
+    public bool IsGameStarted = false;
+    private readonly float _maxGameTime = 1200f;         // 20분 제한
+    private readonly float _LevelChangeGameTime = 240f; // 구간을 5등분
+
+    public event Action<Level> LevelChanged;
     
     private void Awake()
     {
@@ -33,6 +43,26 @@ public class GameManager : MonoBehaviour
         var component = new GameObject(typeof(T).Name);
         component.AddComponent<T>();
         DontDestroyOnLoad(component);
+    }
+
+    private void Update()
+    {
+        if (!IsGameStarted)  return;
+        gameTime += Time.deltaTime; // 총 경과 시간을 표시하기 위함
+        progress += Time.deltaTime; // 일정 시간이 지나면 스테이지의 몬스터를 변경하기 위한 시간
+        LevelChange();
+    }
+
+    private void LevelChange()
+    {
+        if (progress >= _LevelChangeGameTime)   // 진행 정도가 (제한시간 / 5) 한 간격 이상일 경우
+        {
+            _level++;
+            // 레벨을 증가시킨 후 구독자에게 알림
+            LevelChanged?.Invoke(_level);
+            // 진행 정도 초기화
+            progress = 0f;
+        }
     }
 
     public void EndGame()

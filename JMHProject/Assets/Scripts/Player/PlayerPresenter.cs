@@ -30,6 +30,7 @@ public class PlayerPresenter
         currentVel = input * speed;
         _playermodel.CurrentVelocity = currentVel;
         _playerview.SetVelocity(currentVel);
+        _playerview.ani.SetFloat("Speed", Mathf.Abs(input.magnitude));  // 플레이어 애니매이션 전환용, 움직이면 1, 가만히 있으면 0
         _playerview.SetFlipped(currentVel);  // 이미지 좌우 반전
         SetPlayerPos(); // 플레이어의 절대 좌표 저장
     }
@@ -43,6 +44,7 @@ public class PlayerPresenter
     {
         _playermodel.Pos = _playerview.GetPos();
     }
+    
     /*
     private void Jump()
     {

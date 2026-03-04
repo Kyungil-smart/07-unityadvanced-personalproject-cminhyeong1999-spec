@@ -6,12 +6,14 @@ public class PlayerView : MonoBehaviour
     private PlayerPresenter _presenter;
     private Rigidbody2D _rigidbody;
     private Vector2 _velocity;
-    private SpriteRenderer spriteRenderer;
+    
+    public Animator ani;
     
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        ani = GetComponent<Animator>();
     }
     
     /*
