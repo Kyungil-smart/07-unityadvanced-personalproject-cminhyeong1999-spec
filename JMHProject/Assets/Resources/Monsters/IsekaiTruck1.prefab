@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -2981111095294994161}
   - component: {fileID: 4679429794091929715}
   - component: {fileID: 8851907749267465854}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: IsekaiTruck1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8030528418001992916}
   - component: {fileID: 1413615445122416513}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: truckdark_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

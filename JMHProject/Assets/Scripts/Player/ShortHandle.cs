@@ -16,8 +16,10 @@ public class ShortHandle : MonoBehaviour
     {
         get 
         {
-            // 데이터가 아직 할당 안 됐으면 0 반환
-            if (weaponData == null) return 0; 
+            if (weaponData == null) 
+            {
+                return 0f; 
+            }
             return weaponData.GetLevelData(currentLevel).speed;
         }
     }

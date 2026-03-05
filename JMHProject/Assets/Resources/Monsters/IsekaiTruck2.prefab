@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8076982785919208514}
   - component: {fileID: 4579473587265186840}
   - component: {fileID: 8773042536349514722}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: IsekaiTruck2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8159769732330853294}
   - component: {fileID: 3331516505049006174}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: truckcabin_vintage_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

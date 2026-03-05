@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee7cd139ead73fc498ee8ea8ca379b2d, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemName: Pistol
+  itemType: 1
+  prefab: {fileID: 319011027722614843, guid: c9bd89cfec39f1245a538c8492ea7eb1, type: 3}
+  bulletPrefab: {fileID: 1779573419791061975, guid: 5f4c6c8345d18924793b6567ca744631, type: 3}
+  levelDataList:
+  - damage: 20
+    amount: 1
+    cooltime: 1
+    speed: 10
+    pierce: 0
+    desc: "\uAD8C\uCD1D \uD68D\uB4DD"
+  - damage: 20
+    amount: 2
+    cooltime: 1
+    speed: 10
+    pierce: 0
+    desc: "\uCD1D\uC54C \uCD94\uAC00 +1"
+  - damage: 25
+    amount: 2
+    cooltime: 1
+    speed: 10
+    pierce: 0
+    desc: "\uD53C\uD574\uB7C9 +5"
+  - damage: 25
+    amount: 3
+    cooltime: 0.7
+    speed: 10
+    pierce: 0
+    desc: "\uCD1D\uC54C \uCD94\uAC00 +1, \uC5F0\uC0AC \uC18D\uB3C4 0.3\uCD08 \uAC10\uC18C"
+  - damage: 25
+    amount: 3
+    cooltime: 0.7
+    speed: 10
+    pierce: 1
+    desc: "\uCD1D\uC54C \uC801 \uAD00\uD1B5 \uD69F\uC218 +1"
+  - damage: 30
+    amount: 4
+    cooltime: 0.7
+    speed: 10
+    pierce: 1
+    desc: "\uCD1D\uC54C \uCD94\uAC00 +1, \uD53C\uD574\uB7C9 +5"
+  - damage: 30
+    amount: 5
+    cooltime: 0.3
+    speed: 10
+    pierce: 1
+    desc: "\uCD1D\uC54C \uCD94\uAC00 +1, \uC5F0\uC0AC \uC18D\uB3C4 0.4\uCD08 \uC99D\uAC00"
+  - damage: 30
+    amount: 5
+    cooltime: 0.1
+    speed: 10
+    pierce: 2
+    desc: "\uCD1D\uC54C \uC801 \uAD00\uD1B5 \uD69F\uC218 +1, \uC5F0\uC0AC \uC18D\uB3C4
+      0.2\uCD08 \uAC10\uC18C"

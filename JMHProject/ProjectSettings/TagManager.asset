@@ -8,6 +8,7 @@ TagManager:
   - Area
   - Enemy
   - Weapon
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -15,10 +16,10 @@ TagManager:
   - Player
   - Water
   - UI
-  - NPC
-  - Ground
-  - Map
-  - Back
+  - Enemy
+  - 
+  - 
+  - 
   - 
   - 
   - 

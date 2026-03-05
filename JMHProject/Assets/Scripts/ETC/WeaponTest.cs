@@ -4,7 +4,8 @@ public class WeaponTest : MonoBehaviour
 {
     public WeaponHandle weaponHandle;
     public ItemData axeData;
-    public ItemData knifeData;
+    public ItemData pistolData;
+    public ItemData HotdogData;
 
     private void Start()
     {
@@ -17,12 +18,24 @@ public class WeaponTest : MonoBehaviour
 
     private void OnInputClick(string controlName)
     {
-        // controlName은 누른 버튼의 이름입니다 (예: "leftButton", "1", "2" 등)
-        // 사용하시는 NewInputSystem 설정에 따라 이름이 다를 수 있으니 로그로 확인해보세요.
 
-        if (controlName == "leftButton") // 숫자 키 1을 눌렀을 때
+        if (controlName == "leftButton") 
         {
             weaponHandle.AddWeapon(axeData);
+        }
+
+        if (controlName == "rightButton")
+        {
+            bool what = (Random.value < 0.5f);
+            
+            if (what)
+            {
+                weaponHandle.AddWeapon(pistolData);
+            }
+            else
+            {
+                weaponHandle.AddWeapon(HotdogData);
+            }
         }
 
     }

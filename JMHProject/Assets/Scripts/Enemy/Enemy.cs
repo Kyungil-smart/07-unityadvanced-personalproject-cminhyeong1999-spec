@@ -79,8 +79,11 @@ public class Enemy : MonoBehaviour
         if (_isDead) return;
         
         _currentHealth -= damage;
-        
-        if (_currentHealth <= 0) Release();
+
+        if (_currentHealth <= 0)
+        {
+            Release();
+        }
         
     }
     
@@ -88,6 +91,6 @@ public class Enemy : MonoBehaviour
     {
         if(_isDead) return; // 중복 반납 방지용
         _isDead = true;
-        PoolManager.Instance.ReleaseObject(gameObject);
+        MonsterPoolManager.Instance.ReleaseObject(gameObject);
     }
 }

@@ -3,9 +3,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class PoolManager : MonoBehaviour
+public class MonsterPoolManager : MonoBehaviour
 {
-    public static PoolManager Instance { get; private set; }
+    public static MonsterPoolManager Instance { get; private set; }
     
     // 오브젝트 풀
     private IObjectPool<GameObject> _pool;

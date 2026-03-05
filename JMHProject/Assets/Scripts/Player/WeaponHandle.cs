@@ -14,6 +14,7 @@ public class WeaponHandle : MonoBehaviour
         // 새로 만들거나 기존 것을 가져올 때 추출된 컴포넌트를 담아두었다가
         // 프리펩 생성과정에서 사용하기 위함
         ShortHandle sHandle = null;
+        LongHandle lHandle = null;
 
         // 핸들이 없으면 새로 생성
         if (existingHandle == null)
@@ -29,11 +30,16 @@ public class WeaponHandle : MonoBehaviour
             }
             else 
             {
-                // 원거리는 계획대로 추후 구현
                 // 생성 후 원거리무기 컴포넌트 부착
-                var lHandle = handleGo.AddComponent<LongHandle>();
-                lHandle.weaponData = data;
-                return;
+                lHandle = handleGo.AddComponent<LongHandle>();
+                lHandle.Init(data);
+                
+                // 총 프리펩 생성
+                if (data.prefab != null )
+                {
+                    // 플레이어 내에 visual 아래에 두어 스프라이트 좌우반전을 처리 
+                    Instantiate(data.prefab, PlayerPresenter.Player.GetVisual().transform);
+                }
             }
         }
         else
@@ -43,6 +49,11 @@ public class WeaponHandle : MonoBehaviour
             {
                 sHandle = existingHandle.GetComponent<ShortHandle>();
                 sHandle.LevelUp(); 
+            }
+            else
+            {
+                lHandle = existingHandle.GetComponent<LongHandle>();
+                lHandle.LevelUp();
             }
         }
 

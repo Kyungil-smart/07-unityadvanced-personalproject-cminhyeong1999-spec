@@ -10,19 +10,19 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         InvokeRepeating(nameof(Spawn), 2f, spawnRate);
-        EventManager.Instance.LevelChanged += StageChange;
+        EventManager.Instance.LevelChanged += MonsterLevelChange;
     }
 
     private void Spawn()
     {
         for (int i = 0; i < spawnCount; i++)
         {
-            GameObject monster = PoolManager.Instance.GetObject();
+            GameObject monster = MonsterPoolManager.Instance.GetObject();
             monster.transform.position = GetRandomSpawnPosition();
         }
     }
 
-    private void StageChange(StageLevel level)
+    private void MonsterLevelChange(StageLevel level)
     {
         //PoolManager.Instance.SetSummonTypes();
     }
@@ -54,7 +54,7 @@ public class Spawner : MonoBehaviour
 
     private void OnDisable()
     {
-        EventManager.Instance.LevelChanged -= StageChange;
+        EventManager.Instance.LevelChanged -= MonsterLevelChange;
     }
 
 }

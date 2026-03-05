@@ -15,6 +15,7 @@ public class PlayerModel
     public float _moveSpeed { get; private set; }
     public Vector2 Pos { get; set; }
     public Vector2 CurrentVelocity { get; set; }
+    public Transform VisualPoint;
     
 
     public PlayerModel()

@@ -31,7 +31,8 @@ public class GameManager : MonoBehaviour
         ManagementInit<SceneLoader>();
         ManagementInit<InputManager>();
         ManagementInit<EventManager>();
-        ManagementInit<PoolManager>();
+        ManagementInit<MonsterPoolManager>();
+        ManagementInit<BulletPoolManager>();
     }
 
     private void ManagementInit<T>() where T : Component

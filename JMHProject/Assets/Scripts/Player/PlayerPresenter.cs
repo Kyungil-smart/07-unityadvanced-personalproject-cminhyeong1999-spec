@@ -5,15 +5,19 @@ public class PlayerPresenter
     private PlayerModel _playermodel;
     private PlayerView _playerview;
     public static PlayerPresenter Player;
+
+    public Vector2 lastDir; // 가만히 있을 경우 총알이 발사 될 방향
     
     //private bool _isJumping = false;
-    private bool _isWalking = false;
+    //private bool _isWalking = false;
     
     public PlayerPresenter(PlayerModel model, PlayerView view)
     {
         _playermodel = model;
         _playerview = view;
         Player = this;
+        
+        lastDir = Vector2.right;    // 처음 총을 오른손에 쥐고 있는 이미지라 오른쪽으로 설정
 
         InputManager.Instance.Walk += Walk;
         //InputManager.Instance.Jump += Jump;
@@ -21,9 +25,6 @@ public class PlayerPresenter
 
     private void Walk(Vector2 input)
     {
-        if(input == Vector2.zero) _isWalking = false;
-        else _isWalking = true;
-        
         float speed = _playermodel._moveSpeed;
         Vector2 currentVel = _playermodel.CurrentVelocity;
 
@@ -33,11 +34,22 @@ public class PlayerPresenter
         _playerview.ani.SetFloat("Speed", Mathf.Abs(input.magnitude));  // 플레이어 애니매이션 전환용, 움직이면 1, 가만히 있으면 0
         _playerview.SetFlipped(currentVel);  // 이미지 좌우 반전
         SetPlayerPos(); // 플레이어의 절대 좌표 저장
+        
+        // 가만히 있을 경우 총알이 발사 될 방향 결졍하기 위함
+        if (input.sqrMagnitude > 0)
+        {
+            lastDir = input.normalized;
+        }
     }
 
     public Vector2 GetPos()
     {
         return _playermodel.Pos;
+    }
+
+    public Transform GetVisual()
+    {
+        return _playerview.visualTransform;
     }
 
     public void SetPlayerPos()
