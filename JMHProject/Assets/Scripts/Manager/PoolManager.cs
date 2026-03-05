@@ -134,6 +134,7 @@ public class PoolManager : MonoBehaviour
 
     public void ReleaseObject(GameObject obj)
     {
+        if(obj == null) return;
         _pool.Release(obj);
     }
 }

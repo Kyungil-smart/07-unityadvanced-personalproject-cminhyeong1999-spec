@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: IsekaiTruck1
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterName: IsekaiTruck1
-  maxHealth: 1
+  maxHealth: 30
   giveExp: 1
   baseSpeed: 3

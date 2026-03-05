@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerView : MonoBehaviour
 {
@@ -7,13 +6,14 @@ public class PlayerView : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private Vector2 _velocity;
     
+    public Transform visualTransform; // 스프라이트 이미지 반전용
     public Animator ani;
     
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-        ani = GetComponent<Animator>();
+        ani = GetComponentInChildren<Animator>();
     }
     
     /*
@@ -43,11 +43,11 @@ public class PlayerView : MonoBehaviour
     {
         if (velocity.x < 0)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            visualTransform.localScale = new Vector3(-1, 1, 1);
         }
         else if (velocity.x > 0)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            visualTransform.localScale = new Vector3(1, 1, 1);
         }
     }
 

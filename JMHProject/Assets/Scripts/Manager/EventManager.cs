@@ -19,6 +19,7 @@ public class EventManager : MonoBehaviour
     public event Action OnDeath;
     public event Action<int> OnHpIncreased;
     public event Action<int> OnHpDecreased;
+    public event Action<int> OnMonsterHpDecreased;
     public event Action<float> OnMoveSpeedChanged;
     
     // 이벤트 출판 함수
@@ -27,6 +28,7 @@ public class EventManager : MonoBehaviour
     public void PublishOnHpIncreased(int hp) => OnHpIncreased?.Invoke(hp);
     public void PublishOnHpDecreased(int hp) => OnHpDecreased?.Invoke(hp);
     public void PublishOnMoveSpeedChanged(float moveSpeed) => OnMoveSpeedChanged?.Invoke(moveSpeed);
+    public void PublishOnMonsterHpDecreased(int monsterHp) => OnMonsterHpDecreased?.Invoke(monsterHp);
     
     
     

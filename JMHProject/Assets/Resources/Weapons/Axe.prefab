@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 4435246897360977321}
   - component: {fileID: 6993009728536623748}
   - component: {fileID: 8706372599800754822}
+  - component: {fileID: 6053023050116402857}
   m_Layer: 0
-  m_Name: Axe1
-  m_TagString: Untagged
+  m_Name: Axe
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -80,7 +81,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8711176212393126692, guid: 73c7235e38f800145a204029a183069f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -138,3 +139,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.5625, y: 0.6875}
   m_EdgeRadius: 0
+--- !u!114 &6053023050116402857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6299084185877614705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b8cad0e97db28346a00c1b44e08f2db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  data: {fileID: 11400000, guid: 2bf37429f307bcc4c9217b3823924eba, type: 2}
+  currentLevel: 1

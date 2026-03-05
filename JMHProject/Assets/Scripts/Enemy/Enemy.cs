@@ -68,13 +68,26 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Weapon"))
         {
-            
+            Hit(collision.GetComponent<Item>().Damage);
         }
-        else if (collision.CompareTag("Weapon"))
-        {
-            
-        }
+    }
+
+    public void Hit(int damage)
+    {
+        if (_isDead) return;
+        
+        _currentHealth -= damage;
+        
+        if (_currentHealth <= 0) Release();
+        
+    }
+    
+    public void Release()
+    {
+        if(_isDead) return; // 중복 반납 방지용
+        _isDead = true;
+        PoolManager.Instance.ReleaseObject(gameObject);
     }
 }
