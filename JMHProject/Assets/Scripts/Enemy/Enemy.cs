@@ -7,8 +7,12 @@ public class Enemy : MonoBehaviour
     private Vector2 _target;
 
     private bool _isDead;
+    
     private int _currentHealth;
+    private int _damage;
     private float _currentSpeed;
+    private int _exp;
+    
     private Rigidbody2D _rig;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,6 +30,8 @@ public class Enemy : MonoBehaviour
         _isDead = false;
         _currentHealth = _data.maxHealth;
         _currentSpeed = _data.baseSpeed;
+        _damage = _data.damage;
+        _exp = _data.giveExp;
         if(_rig != null) _rig.linearVelocity = Vector2.zero;
     }
 
@@ -70,7 +76,10 @@ public class Enemy : MonoBehaviour
     {
         if (collision.CompareTag("Weapon"))
         {
-            Hit(collision.GetComponent<Item>().Damage);
+            // 무기 데미지 불러옴
+            int damaged = collision.GetComponent<Item>().Damage;
+            // 무기 데미지 + 플레이어 추가 계수
+            Hit(PlayerPresenter.Player.GetDamage(damaged));
         }
     }
 
@@ -86,11 +95,19 @@ public class Enemy : MonoBehaviour
         }
         
     }
+
+    public int Attack() 
+    {
+        return _damage;
+    }
     
     public void Release()
     {
         if(_isDead) return; // 중복 반납 방지용
         _isDead = true;
+        PlayerPresenter.Player.GainExp(_exp);
+        EventManager.Instance.PublishOnExpIncreased(_exp);
+        EventManager.Instance.PublishOnKilled(1);
         MonsterPoolManager.Instance.ReleaseObject(gameObject);
     }
 }

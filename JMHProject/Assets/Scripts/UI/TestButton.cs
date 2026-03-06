@@ -20,7 +20,7 @@ public class Test : MonoBehaviour
 
     public void NewSceneClicked()
     {
-        SceneLoader.Instance.LoadScene("SampleScene");
+        SceneLoader.Instance.LoadScene("GameScene");
     }
     
     public void GameQuit()

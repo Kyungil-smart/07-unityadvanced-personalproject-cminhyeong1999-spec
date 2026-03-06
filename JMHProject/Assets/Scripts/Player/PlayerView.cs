@@ -1,10 +1,16 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerView : MonoBehaviour
 {
+    // 무적시 깜빡임 효과를 위한 변수
+    [SerializeField] private SpriteRenderer sprite;
+    
     private PlayerPresenter _presenter;
     private Rigidbody2D _rigidbody;
     private Vector2 _velocity;
+    private bool _isInvincible = false; // 무적 상태 체크
+    [SerializeField] private float invincibilityTime = 1f; // 무적 시간
     
     public Transform visualTransform; // 스프라이트 이미지 반전용
     public Animator ani;
@@ -15,14 +21,6 @@ public class PlayerView : MonoBehaviour
         _rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
         ani = GetComponentInChildren<Animator>();
     }
-    
-    /*
-    private void Update()
-    {
-        // 매 프레임 Presenter에게 물리 계산 요청 (중력 등)
-        _presenter?.UpdatePhysics(Time.deltaTime);
-    }
-    */
     
     private void FixedUpdate()
     {
@@ -57,11 +55,30 @@ public class PlayerView : MonoBehaviour
         var y = transform.position.y;
         return new Vector2(x, y);
     }
-    
-    /*
-    public bool IsGrounded()
+
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        return Physics2D.OverlapCircle(_rigidbody.position + Vector2.down, 0.2f,LayerMask.GetMask("Ground"));
+        
+        // 무적상태가 아니고 충돌한 적이 있으면 데미지 판정
+        if (collision.CompareTag("Enemy") && !_isInvincible)
+        {
+            int takeDamage = collision.GetComponent<Enemy>().Attack();
+            _presenter.TakeDamage(takeDamage);
+            EventManager.Instance.PublishOnHpDecreased(takeDamage);
+            // 무적 판정 시작
+            StartCoroutine(Invincibility());
+        }
+        
     }
-    */
+    
+    private IEnumerator Invincibility()
+    {
+        _isInvincible = true;
+        
+
+        yield return new WaitForSeconds(invincibilityTime);
+
+        _isInvincible = false;
+    }
+
 }

@@ -40,6 +40,11 @@ public class InputManager : MonoBehaviour
         _inputActions.Click.Click.performed += ctx => Click?.Invoke(ctx.control.name);
     }
 
+    private void OnEnable()
+    {
+        _inputActions.Enable();
+    }
+
     private void OnDisable()
     {
         Terminate();

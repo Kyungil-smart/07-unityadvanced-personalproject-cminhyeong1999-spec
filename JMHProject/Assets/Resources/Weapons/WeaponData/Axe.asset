@@ -18,49 +18,49 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   levelDataList:
   - damage: 11
-    amount: 3
+    amount: 1
     cooltime: 0
     speed: 100
     pierce: 0
     desc: "\uB3C4\uB07C \uD68D\uB4DD"
   - damage: 11
-    amount: 4
+    amount: 2
     cooltime: 0
     speed: 100
     pierce: 0
     desc: "\uAC1C\uC218 +1"
   - damage: 11
-    amount: 4
+    amount: 2
     cooltime: 0
     speed: 120
     pierce: 0
     desc: "\uC18D\uB3C4 +20%"
   - damage: 22
-    amount: 4
+    amount: 2
     cooltime: 0
     speed: 120
     pierce: 0
     desc: "\uD53C\uD574\uB7C9 +11"
   - damage: 22
-    amount: 5
+    amount: 3
     cooltime: 0
     speed: 120
     pierce: 0
     desc: "\uAC1C\uC218 +1"
   - damage: 22
-    amount: 5
+    amount: 3
     cooltime: 0
     speed: 144
     pierce: 0
     desc: "\uC18D\uB3C4 +20%"
   - damage: 33
-    amount: 5
+    amount: 3
     cooltime: 0
     speed: 144
     pierce: 0
     desc: "\uD53C\uD574\uB7C9 +11"
   - damage: 33
-    amount: 6
+    amount: 4
     cooltime: 0
     speed: 144
     pierce: 0

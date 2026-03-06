@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b29f446f61cd6a4492449f2a0afe57c, type: 3}
-  m_Name: IsekaiTruck1
+  m_Name: IsekaiTruck4
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
-  monsterName: IsekaiTruck1
-  maxHealth: 6
-  giveExp: 1
-  damage: 1
-  baseSpeed: 3
+  monsterName: IsekaiTruck4
+  maxHealth: 135
+  giveExp: 2
+  damage: 10
+  baseSpeed: 0.5

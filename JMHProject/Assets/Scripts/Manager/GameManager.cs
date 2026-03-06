@@ -35,6 +35,11 @@ public class GameManager : MonoBehaviour
         ManagementInit<BulletPoolManager>();
     }
 
+    private void OnEnable()
+    {
+        EventManager.Instance.OnDeath += GameOver;
+    }
+
     private void ManagementInit<T>() where T : Component
     {
         if (FindAnyObjectByType<T>() != null) return;
@@ -57,6 +62,7 @@ public class GameManager : MonoBehaviour
         if (progress >= _LevelChangeGameTime)   // 진행 정도가 (제한시간 / 5) 한 간격 이상일 경우
         {
             _level++;
+            MonsterPoolManager.Instance.summonIndex++;
             // 레벨을 증가시킨 후 구독자에게 알림
             EventManager.Instance.PublishOnLevelChanged(_level);
             // 진행 정도 초기화
@@ -64,14 +70,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void GameOver()
+    {
+        SceneLoader.Instance.LoadScene("GameOver");
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.OnDeath -= GameOver;
+    }
+
     public void EndGame()
     {
-        // 
-        #if UNITY_EDITOR
-            Debug.Log("Game Quit");
-        #else
-            Application.Quit();
-        #endif
+        Application.Quit();
     }
     
 }

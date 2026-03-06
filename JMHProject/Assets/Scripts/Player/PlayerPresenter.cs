@@ -1,15 +1,12 @@
 using UnityEngine;
 
-public class PlayerPresenter
+public class PlayerPresenter //: MonoBehaviour
 {
     private PlayerModel _playermodel;
     private PlayerView _playerview;
     public static PlayerPresenter Player;
 
     public Vector2 lastDir; // 가만히 있을 경우 총알이 발사 될 방향
-    
-    //private bool _isJumping = false;
-    //private bool _isWalking = false;
     
     public PlayerPresenter(PlayerModel model, PlayerView view)
     {
@@ -20,7 +17,9 @@ public class PlayerPresenter
         lastDir = Vector2.right;    // 처음 총을 오른손에 쥐고 있는 이미지라 오른쪽으로 설정
 
         InputManager.Instance.Walk += Walk;
-        //InputManager.Instance.Jump += Jump;
+        EventManager.Instance.OnHpDecreased += TakeDamage;
+        EventManager.Instance.OnHpIncreased += HealHp;
+        EventManager.Instance.OnExpIncreased += GainExp;
     }
 
     private void Walk(Vector2 input)
@@ -56,48 +55,57 @@ public class PlayerPresenter
     {
         _playermodel.Pos = _playerview.GetPos();
     }
+
+    public int GetDamage(int baseDamage)
+    {
+        return _playermodel.GetDamage(baseDamage);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        _playermodel.TakeDamage(damage);
+    }
+
+    public void HealHp(int heal)
+    {
+        _playermodel.HealHp(heal);
+    }
+
+    public int GetMaxHp()
+    {
+        return _playermodel._maxHp;
+    }
+
+    public int GetMaxExp()
+    {
+        return _playermodel._maxExp;
+    }
+
+    public int GetCurrentLevel()
+    {
+        return _playermodel.GetLevel();
+    }
     
-    /*
-    private void Jump()
+    // 경험치를 먹고 레벨업이 가능하면 레벨업 이벤트 발행
+    public void GainExp(int exp)
     {
-        // 지면에 있을 때만 점프 가능
-        if (_playermodel.IsGrounded)
-        {
-            Vector2 currentVel = _playermodel.CurrentVelocity;
-            currentVel.y = _playermodel._jumpForce; // 점프 힘 적용
-            _playermodel.CurrentVelocity = currentVel;
-        }
+        bool what = _playermodel.IsLevelUp(exp);
+        if (what) PlayerLevelUp();
     }
-    */
 
-    /*
-    // 지면 체크, 임의 중력 적용 등을 매 프레임 체크하기 위한 메서드
-    public void UpdatePhysics(float deltaTime)
+    // 레벨업시 이벤트 발행 및 무기 선택
+    public void PlayerLevelUp()
     {
-        // 지면 체크 후 model에 저장
-        _playermodel.IsGrounded = _playerview.IsGrounded();
-        
-        Vector2 velocity = _playermodel.CurrentVelocity;
-
-        if (_playermodel.IsGrounded)
-        {
-            if (velocity.y < 0) velocity.y = 0; // 바닥에 있으면 추락 속도 제거
-        }
-        else
-        {
-            // 공중이라면 중력 적용
-            velocity.y += _playermodel.Gravity * deltaTime;
-        }
-
-        // 결과값을 모델에 저장하고 뷰에 전달
-        _playermodel.CurrentVelocity = velocity;
-        _playerview.SetVelocity(velocity);
+        EventManager.Instance.PublishOnPlayerLevelUp();
+        Object.FindFirstObjectByType<SelectWeaponManager>().OpenUI();
     }
-    */
     
     public void Terminate()
     {
         InputManager.Instance.Walk -= Walk;
-        //InputManager.Instance.Jump -= Jump;
+        EventManager.Instance.OnHpDecreased -= TakeDamage;
+        EventManager.Instance.OnHpIncreased -= HealHp;
+        _playerview.gameObject.SetActive(false);
+        _playermodel = null;
     }
 }
